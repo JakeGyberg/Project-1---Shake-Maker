@@ -7,7 +7,7 @@ public class Shake extends Ingredient
 
     //Constructor with default shake base
     public Shake(String name_) {
-		super(name_, 250, 80, 0, 0, 0, 20);
+		super(name_, 250, 1, 0.8, 0, 0, 0, 0.2);
 	}
 
 	//Finds an ingredient by name from a given ArrayList
@@ -23,21 +23,37 @@ public class Shake extends Ingredient
         return list.get(0);
 	}
 	
-	public void addIngredient (Ingredient newIngredient, double volume) 
-	{
-        newIngredient.setVolume(volume);
-		blender.add(newIngredient);
-        setSweet(getSweet() + newIngredient.getSweet() * newIngredient.getVolume() / getVolume());
-        setSour(getSour() + newIngredient.getSour() * newIngredient.getVolume() / getVolume());
-        setSalt(getSalt() + newIngredient.getSalt() * newIngredient.getVolume() / getVolume());
-        setBitter(getBitter() + newIngredient.getBitter() * newIngredient.getVolume() / getVolume());
-        setUmami(getUmami() + newIngredient.getUmami() * newIngredient.getVolume() / getVolume());
-	}
+    //Adjusts the shake's flavors 
+    public double runningAverage(double sweet, double volume, double newSweet, double newVolume, double tasteFactor)
+    {//add tast facotr param
+        double flavorVolume = volume * sweet;
+        double newFlavorVolume = newVolume * newSweet * tasteFactor;
+        double totalVolume = volume + newVolume;
+        //System.out.println(tasteFactor);
+        return (flavorVolume + newFlavorVolume) / totalVolume;
+    }
 
-
-	//Rates this shake based off the interaction of its flavors
-	public void blend()
+    //Adds ingredient which catolougs the ingredients in the shake and adjusts the shakes favors based off of the new ingredient's flavors and how much of the new ingredient is being added
+	public void addIngredient (Ingredient newIngredient, double volume)
 	{
-		double rating;
-	}
+		blender.add(new Ingredient(newIngredient.getName(), newIngredient.getVolume(), newIngredient.getTasteFactor(), newIngredient.getSweet(), newIngredient.getSour(), newIngredient.getSalt(), newIngredient.getBitter(), newIngredient.getUmami()));
+        //System.out.println("hyeyey" + runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume));
+        setSweet(runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume, newIngredient.getTasteFactor()));
+        setSour(runningAverage(getSour(), getVolume(), newIngredient.getSour(), volume, newIngredient.getTasteFactor()));
+        setSalt(runningAverage(getSalt(), getVolume(), newIngredient.getSalt(), volume, newIngredient.getTasteFactor()));
+        setBitter(runningAverage(getBitter(), getVolume(), newIngredient.getBitter(), volume, newIngredient.getTasteFactor()));
+        setUmami(runningAverage(getUmami(), getVolume(), newIngredient.getUmami(), volume, newIngredient.getTasteFactor()));
+    }
+
+    //Print the taste of the shake
+    public void rateShake () 
+    {
+        for (Flavor f: getFlavors()) 
+        {
+            if (f.getIntensity() > 0.8) {
+                System.out.println("Too much " + f.getType());
+            }
+        }
+    }
+
 }
