@@ -25,7 +25,7 @@ public class Shake extends Ingredient
 	}
 	
     //Adjusts the shake's flavors 
-    public double runningAverage(double flavorPercent, double effectiveVolume, double newFlavorPercent, double newEffectiveVolume)
+    public double calculateTaste(double flavorPercent, double effectiveVolume, double newFlavorPercent, double newEffectiveVolume)
     {
         double flavorVolume = effectiveVolume * flavorPercent;
         double newFlavorVolume = newEffectiveVolume * newFlavorPercent;
@@ -43,11 +43,11 @@ public class Shake extends Ingredient
 
         setVolume(getVolume() + volume);
 
-        setSweet(runningAverage(getSweet(), effectiveVolume, newIngredient.getSweet(), newEffectiveVolume));
-        setSour(runningAverage(getSour(), effectiveVolume, newIngredient.getSour(), newEffectiveVolume));
-        setSalt(runningAverage(getSalt(), effectiveVolume, newIngredient.getSalt(), newEffectiveVolume));
-        setBitter(runningAverage(getBitter(), effectiveVolume, newIngredient.getBitter(), newEffectiveVolume));
-        setUmami(runningAverage(getUmami(), effectiveVolume, newIngredient.getUmami(), newEffectiveVolume));
+        setSweet(calculateTaste(getSweet(), effectiveVolume, newIngredient.getSweet(), newEffectiveVolume));
+        setSour(calculateTaste(getSour(), effectiveVolume, newIngredient.getSour(), newEffectiveVolume));
+        setSalt(calculateTaste(getSalt(), effectiveVolume, newIngredient.getSalt(), newEffectiveVolume));
+        setBitter(calculateTaste(getBitter(), effectiveVolume, newIngredient.getBitter(), newEffectiveVolume));
+        setUmami(calculateTaste(getUmami(), effectiveVolume, newIngredient.getUmami(), newEffectiveVolume));
     }
 
     //Print the taste of the shake
