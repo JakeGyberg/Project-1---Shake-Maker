@@ -37,7 +37,8 @@ public class Ingredient
     {
         return (int) (num * 100) + "%";
     }
-    public void printTasteStats() {
+    public void printTasteStats() 
+    {
         System.out.println(name + " is:"
             + "\n" + volume + " ml"
             + "\nSweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
@@ -47,7 +48,18 @@ public class Ingredient
             + "\nSavory: " + doubleToPercent(findFlavor("umami").getIntensity()) + "\n");
 	}
 
-
+    public void printTasteStats2()
+    {
+        System.out.println
+        (
+            name + " is "
+            + " Sweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
+            + " Salt: " + doubleToPercent(findFlavor("salt").getIntensity())
+            + " Sour: " + doubleToPercent(findFlavor("sour").getIntensity())
+            + " Bitter: " + doubleToPercent(findFlavor("bitter").getIntensity())
+            + " Savory: " + doubleToPercent(findFlavor("umami").getIntensity()) + "\n"
+        );
+    }
 
 
 

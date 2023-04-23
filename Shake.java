@@ -37,6 +37,7 @@ public class Shake extends Ingredient
 	public void addIngredient (Ingredient newIngredient, double volume)
 	{
 		blender.add(new Ingredient(newIngredient.getName(), newIngredient.getVolume(), newIngredient.getTasteFactor(), newIngredient.getSweet(), newIngredient.getSour(), newIngredient.getSalt(), newIngredient.getBitter(), newIngredient.getUmami()));
+        setVolume(getVolume() + volume);
         //System.out.println("hyeyey" + runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume));
         setSweet(runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume, newIngredient.getTasteFactor()));
         setSour(runningAverage(getSour(), getVolume(), newIngredient.getSour(), volume, newIngredient.getTasteFactor()));
