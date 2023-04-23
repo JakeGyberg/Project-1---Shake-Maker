@@ -12,7 +12,7 @@ public class Runner
 		//saadfsafas
 		ingredientOptions.add(new Ingredient("chocolate", 0, 1.5, 0.5, 0, 0, 0.2, 0.2));
 		ingredientOptions.add(new Ingredient("caramel", 0, 1, 0.6, 0, 0.2, 0, 0.2));
-		ingredientOptions.add(new Ingredient("penut butter", 0, 1, 0.2, 0, 0.2, 0.1, 0.5));
+		ingredientOptions.add(new Ingredient("peanut butter", 0, 1, 0.2, 0, 0.2, 0.1, 0.5));
 		ingredientOptions.add(new Ingredient("honey", 0, 10, 0.9, 0, 0, 0, 0.1));
 		ingredientOptions.add(new Ingredient("salt", 0, 10, 0, 0, 1, 0, 0.01));
 		ingredientOptions.add(new Ingredient("grahm cracker", 0, 1, 0.4, 0, 0, 0, 0.4));
