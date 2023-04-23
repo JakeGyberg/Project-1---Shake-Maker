@@ -60,7 +60,7 @@ public class Runner
 		//Game Play
 		boolean invalid;
 		String playerInput;
-		double playerInputDouble;
+		double playerInputDouble = 0;
 		boolean playing = true;
 
 		Scanner input = new Scanner(System.in);
@@ -105,7 +105,23 @@ public class Runner
 							{
 								System.out.print("How many mls would you like to add? ");
 
-								playerInputDouble = input.nextDouble();
+								boolean invalid3 = true;
+								while (invalid3)
+								{
+									playerInput = input.nextLine();
+									try 
+									{
+										playerInputDouble = Double.parseDouble(playerInput);
+										invalid3 = false;
+									} 
+									catch (NumberFormatException e)
+									{
+										System.out.println("Enter a number.");
+									}
+									
+									
+								}
+								
 
 								myShake.addIngredient(i, playerInputDouble);
 
@@ -118,7 +134,7 @@ public class Runner
 						}
 					}
 					invalid = false;
-					input.nextLine();
+					//input.nextLine();
 				} 
 				else if (playerInput.trim().equalsIgnoreCase("stats"))
 				{
@@ -132,7 +148,7 @@ public class Runner
 				} 
 				else 
 				{
-					System.out.print("Input not recognised. Try again. " + playerInput);
+					System.out.print("Input not recognised. Try again. ");
 				}
 
 			}
