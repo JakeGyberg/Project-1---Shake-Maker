@@ -53,7 +53,7 @@ public class Ingredient
         System.out.println
         (
             name + " is "
-            + " Sweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
+            + "Sweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
             + " Salt: " + doubleToPercent(findFlavor("salt").getIntensity())
             + " Sour: " + doubleToPercent(findFlavor("sour").getIntensity())
             + " Bitter: " + doubleToPercent(findFlavor("bitter").getIntensity())

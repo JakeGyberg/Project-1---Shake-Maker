@@ -15,18 +15,18 @@ public class Runner
 		ingredientOptions.add(new Ingredient("penut butter", 0, 1, 0.2, 0, 0.2, 0.1, 0.5));
 		ingredientOptions.add(new Ingredient("honey", 0, 10, 0.9, 0, 0, 0, 0.1));
 		ingredientOptions.add(new Ingredient("salt", 0, 10, 0, 0, 1, 0, 0.01));
-		ingredientOptions.add(new Ingredient("grahm cracker", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("coffe", 0, 4, 0, .1, 0, .8, .1));
+		ingredientOptions.add(new Ingredient("grahm cracker", 0, 1, 0.4, 0, 0, 0, 0.4));
+		ingredientOptions.add(new Ingredient("coffee", 0, 4, 0, .1, 0, .8, .1));
 
 		//Fruit
-		ingredientOptions.add(new Ingredient("strawberry", 0, 1, 0.6, 0.3, 0, 0.05, 0));
-		ingredientOptions.add(new Ingredient("orange", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("mint", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("rasberry", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("lemon", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("peach", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("bannana", 0, 1, 0, 0, 0, 0, 0));
-		ingredientOptions.add(new Ingredient("cherry", 0, 1, 0, 0, 0, 0, 0));
+		ingredientOptions.add(new Ingredient("strawberry", 0, 1, 0.6, 0.2, 0, 0.05, 0));
+		ingredientOptions.add(new Ingredient("orange", 0, 1, 0.6, 0.3, 0, 0.05, 0));
+		//ingredientOptions.add(new Ingredient("mint", 0, 1, .3, 0, 0, 0, 0));
+		ingredientOptions.add(new Ingredient("rasberry", 0, 1, .6, .2, 0, 0, 0));
+		ingredientOptions.add(new Ingredient("lemon", 0, 1, .3, .8, 0, 0, 0));
+		ingredientOptions.add(new Ingredient("peach", 0, 1, .7, 0, 0, 0, 0));
+		ingredientOptions.add(new Ingredient("bannana", 0, 1, .5, 0, 0, 0, 0.2));
+		ingredientOptions.add(new Ingredient("cherry", 0, 1, 0.6, 0.4, 0, 0, 0));
 		
 /* 
 		//Creates the shake object
@@ -61,7 +61,6 @@ public class Runner
 		boolean invalid;
 		String playerInput;
 		double playerInputDouble;
-		Ingredient userChoice;
 		boolean playing = true;
 
 		Scanner input = new Scanner(System.in);
@@ -104,12 +103,12 @@ public class Runner
 						{
 							if (playerInput.trim().equalsIgnoreCase(i.getName()))
 							{
-								System.out.print(" How many mls would you like to add? ");
+								System.out.print("How many mls would you like to add? ");
 
 								playerInputDouble = input.nextDouble();
 
 								myShake.addIngredient(i, playerInputDouble);
-								
+
 								invalid2 = false;
 							}
 						}

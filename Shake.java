@@ -4,6 +4,7 @@ public class Shake extends Ingredient
 {
     //List of ingredients in the shake
 	private ArrayList<Ingredient> blender = new ArrayList<Ingredient>();
+    private double effectiveVolume;
 
     //Constructor with default shake base
     public Shake(String name_) {
@@ -24,26 +25,29 @@ public class Shake extends Ingredient
 	}
 	
     //Adjusts the shake's flavors 
-    public double runningAverage(double sweet, double volume, double newSweet, double newVolume, double tasteFactor)
-    {//add tast facotr param
-        double flavorVolume = volume * sweet;
-        double newFlavorVolume = newVolume * newSweet * tasteFactor;
-        double totalVolume = volume + newVolume;
-        //System.out.println(tasteFactor);
+    public double runningAverage(double flavorPercent, double effectiveVolume, double newFlavorPercent, double newEffectiveVolume)
+    {
+        double flavorVolume = effectiveVolume * flavorPercent;
+        double newFlavorVolume = newEffectiveVolume * newFlavorPercent;
+        double totalVolume = effectiveVolume + newEffectiveVolume;
         return (flavorVolume + newFlavorVolume) / totalVolume;
     }
 
-    //Adds ingredient which catolougs the ingredients in the shake and adjusts the shakes favors based off of the new ingredient's flavors and how much of the new ingredient is being added
+    //Adds ingredient which catologs the ingredients in the shake and adjusts the shakes favors based off of the new ingredient's flavors and how much of the new ingredient is being added
 	public void addIngredient (Ingredient newIngredient, double volume)
 	{
-		blender.add(new Ingredient(newIngredient.getName(), newIngredient.getVolume(), newIngredient.getTasteFactor(), newIngredient.getSweet(), newIngredient.getSour(), newIngredient.getSalt(), newIngredient.getBitter(), newIngredient.getUmami()));
+		blender.add(new Ingredient(newIngredient.getName(), volume, newIngredient.getTasteFactor(), newIngredient.getSweet(), newIngredient.getSour(), newIngredient.getSalt(), newIngredient.getBitter(), newIngredient.getUmami()));
+        
+        effectiveVolume += volume * newIngredient.getTasteFactor();
+        double newEffectiveVolume = volume * newIngredient.getTasteFactor();
+
         setVolume(getVolume() + volume);
-        //System.out.println("hyeyey" + runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume));
-        setSweet(runningAverage(getSweet(), getVolume(), newIngredient.getSweet(), volume, newIngredient.getTasteFactor()));
-        setSour(runningAverage(getSour(), getVolume(), newIngredient.getSour(), volume, newIngredient.getTasteFactor()));
-        setSalt(runningAverage(getSalt(), getVolume(), newIngredient.getSalt(), volume, newIngredient.getTasteFactor()));
-        setBitter(runningAverage(getBitter(), getVolume(), newIngredient.getBitter(), volume, newIngredient.getTasteFactor()));
-        setUmami(runningAverage(getUmami(), getVolume(), newIngredient.getUmami(), volume, newIngredient.getTasteFactor()));
+
+        setSweet(runningAverage(getSweet(), effectiveVolume, newIngredient.getSweet(), newEffectiveVolume));
+        setSour(runningAverage(getSour(), effectiveVolume, newIngredient.getSour(), newEffectiveVolume));
+        setSalt(runningAverage(getSalt(), effectiveVolume, newIngredient.getSalt(), newEffectiveVolume));
+        setBitter(runningAverage(getBitter(), effectiveVolume, newIngredient.getBitter(), newEffectiveVolume));
+        setUmami(runningAverage(getUmami(), effectiveVolume, newIngredient.getUmami(), newEffectiveVolume));
     }
 
     //Print the taste of the shake
@@ -51,15 +55,16 @@ public class Shake extends Ingredient
     {
         int numOfExcessive = 0;
 
-        for (Flavor f: getFlavors()) 
+        for (Flavor f: getFlavors())
         {
-            if (f.getIntensity() > 0.8 || (f.getType().equals("bitter") && f.getIntensity() > 0.1)) {
+            if (f.getIntensity() > 0.8 || (f.getType().equals("bitter") && f.getIntensity() > 0.1) || (f.getType().equals("salt") && f.getIntensity() > 0.2)) {
                 numOfExcessive++;
                 Ingredient maxTaste = blender.get(0);
                 for (Ingredient i: blender)
                 {
                     double iInfluence = i.getVolume() * i.getTasteByString(f.getType()) * i.getTasteFactor();
                     double maxInfluence = maxTaste.getVolume() * maxTaste.getTasteByString(f.getType()) * maxTaste.getTasteFactor();
+
                     if (iInfluence > maxInfluence)
                     {
                         maxTaste = i;
