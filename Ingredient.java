@@ -37,12 +37,14 @@ public class Ingredient
     {
         return (int) (num * 100) + "%";
     }
-    public String getStringTaste() {
-        return name + " is\nSweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
+    public void printTasteStats() {
+        System.out.println(name + " is:"
+            + "\n" + volume + " ml"
+            + "\nSweet: " + doubleToPercent(findFlavor("sweet").getIntensity())
             + "\nSalt: " + doubleToPercent(findFlavor("salt").getIntensity())
             + "\nSour: " + doubleToPercent(findFlavor("sour").getIntensity())
             + "\nBitter: " + doubleToPercent(findFlavor("bitter").getIntensity())
-            + "\nSavory: " + doubleToPercent(findFlavor("umami").getIntensity()) + "\n";
+            + "\nSavory: " + doubleToPercent(findFlavor("umami").getIntensity()) + "\n");
 	}
 
 
@@ -68,6 +70,35 @@ public class Ingredient
     public double getTasteFactor () 
     {
         return tasteFactor;
+    }
+    //Calls the correct get meathod based off of parameter
+    public double getTasteByString(String tasteString)
+    {
+        if (tasteString.equals("sweet"))
+        {
+            return getSweet();
+        } 
+        else if (tasteString.equals("sour"))
+        {
+            return getSour();
+        }
+        else if (tasteString.equals("salt"))
+        {
+            return getSalt();
+        }
+        else if (tasteString.equals("bitter"))
+        {
+            return getBitter();
+        }
+        else if (tasteString.equals("umami"))
+        {
+            return getUmami();
+        }
+        else 
+        {
+            System.out.println("getTasteByString parameter error");
+            return -1;
+        }
     }
     public double getSweet () 
     {

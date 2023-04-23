@@ -48,11 +48,28 @@ public class Shake extends Ingredient
     //Print the taste of the shake
     public void rateShake () 
     {
+        int numOfExcessive = 0;
+
         for (Flavor f: getFlavors()) 
         {
-            if (f.getIntensity() > 0.8) {
-                System.out.println("Too much " + f.getType());
+            if (f.getIntensity() > 0.8 || (f.getType().equals("bitter") && f.getIntensity() > 0.1)) {
+                numOfExcessive++;
+                Ingredient maxTaste = blender.get(0);
+                for (Ingredient i: blender)
+                {
+                    double iInfluence = i.getVolume() * i.getTasteByString(f.getType()) * i.getTasteFactor();
+                    double maxInfluence = maxTaste.getVolume() * maxTaste.getTasteByString(f.getType()) * maxTaste.getTasteFactor();
+                    if (iInfluence > maxInfluence)
+                    {
+                        maxTaste = i;
+                    }
+                }
+                System.out.println("Too much " + f.getType() + ". Less " + maxTaste.getName());
             }
+        }
+        if (numOfExcessive == 0) 
+        {
+            System.out.println("This milkshake might taste good");
         }
     }
 
